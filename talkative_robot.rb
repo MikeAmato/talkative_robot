@@ -1,11 +1,15 @@
 require 'pry'
 puts "What is your name?"
 name = gets.chomp
+
 puts "What is your age?"
 age = gets.chomp.to_i
+
 puts "What is your gender?"
 gender = gets.chomp
+
 puts "Hi #{name} who is #{age} years old!"
+
 puts " "
 
 puts age > 40 ? "You are getting older!" : "You are still young!"
@@ -30,6 +34,8 @@ when age > 75
 	puts "You turned 75 #{older_age} years ago."
 end
 
+
+
 if age < 20 && gender.downcase == "m"
 	puts "You are a young boy"
 elsif age < 20 && gender.downcase == "f"
@@ -38,13 +44,18 @@ else
 	puts "You are not very young"
 end
 
+
+
 if age > 70 && gender.downcase == "f"
 	puts "Are you a great-great grandmother!"
 end
 
+
+
 if age > 70 && gender.downcase == "m"
 	puts "Are you a great-great grandfather!"
 end 
+
 
 puts " "
 
