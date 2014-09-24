@@ -1,4 +1,6 @@
 require 'pry'
+
+
 puts "What is your name?"
 name = gets.chomp
 
@@ -10,7 +12,7 @@ gender = gets.chomp
 
 puts "Hi #{name} who is #{age} years old!"
 
-puts " "
+puts " " #to make a space
 
 puts age > 40 ? "You are getting older!" : "You are still young!"
 
@@ -21,6 +23,8 @@ if age < 25
 else
 	puts "You can rent a car!"
 end
+
+puts " " #to make a space
 
 old_age = 75 - age
 older_age = age - 75
@@ -34,7 +38,7 @@ when age > 75
 	puts "You turned 75 #{older_age} years ago."
 end
 
-
+puts " " #to make a space
 
 if age < 20 && gender.downcase == "m"
 	puts "You are a young boy"
