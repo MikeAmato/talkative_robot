@@ -46,6 +46,7 @@ def are_great_grandfather(user)
 	end 
 end
 
+
 def get_user_info
 	user = {}
 
@@ -62,7 +63,6 @@ def get_user_info
 
 	user
 end
-
 def answer?(question)
 		answer = ""
 
@@ -101,28 +101,59 @@ def display_grocery_list(grocery_list)
 
 end
 
+def print_grocery_list(grocery_list)
+
+	grocery_list.each_index { |item| puts "Item #{item + 1} -- #{grocery_list[item]}"}
+
+end
+
+def people_enum
+	people = ["user", "author"]
+	puts  people.detect {|item| item == "author"}
+end
+
+def select_by_name(people, my_name)
+	people.select{ |item|  item == my_name}
+
+end
 
 
 #////////////////////////////////////////Methods/Functions above this line
-#Rewrite with hashes in place of user variables and add checks for wrong answers and grocery processes
 grocery_list = Array.new
 grocery_list = ["bread", "cheese", "chicken", "wine", "soup", "butter"]
 
-current_user = get_user_info
+people = [{name: "Michael Amato", age: 27, gender: "M"}, {name: "Joe User", age: 20, gender: "M"}]
 
-car_rental(current_user)
+author = {name: "Michael Amato", age: 27, gender: "M"}
+user = {name: "Joe User", age: 20, gender: "M"}
 
-relative_to_75(current_user)
 
-is_young_gender(current_user)
+puts author.reject{ |key, value| value != "Michael Amato" }
+puts user.reject{ |key, value| value != "Michael Amato" }
 
-are_great_grandmother(current_user)
 
-are_great_grandfather(current_user)
+me = select_by_name(people, author[:name])
+puts me
+people_enum
 
-do_grocery_list(grocery_list)
+#current_user = get_user_info
 
-display_grocery_list(grocery_list)
+#car_rental(current_user)
+
+#relative_to_75(current_user)
+
+#is_young_gender(current_user)
+
+#are_great_grandmother(current_user)
+
+#are_great_grandfather(current_user)
+
+#do_grocery_list(grocery_list)
+
+#display_grocery_list(grocery_list)
+
+print_grocery_list(grocery_list)
+
 
 #///////////////////////////////////////////////////////////////// Code I haven't modified yet
 #puts "Do you mind if I call you #{name.chars.first}.\n\n"
