@@ -1,8 +1,8 @@
 require 'pry'
 
 
-def car_rental(age)
-	if age < 25 
+def car_rental(user)
+	if user[:age] < 25 
 		puts "You can't rent a car yet!\n\n"
 	else
 		puts "You can rent a car!\n\n"
@@ -10,22 +10,22 @@ def car_rental(age)
 end
 
 
-def relative_to_75(age)
+def relative_to_75(user)
 	case 
-	when age < 75
-		puts "You'll be 75 in #{age - 75} years!\n\n"
-	when age == 75
+	when user[:age] < 75
+		puts "You'll be 75 in #{75 -user[:age]} years!\n\n"
+	when user[:age] == 75
 		puts "You're 75.\n\n"
-	when age > 75
-		puts "You turned 75 #{75 - age} years ago.\n\n"
+	else
+		puts "You turned 75 #{user[:age] - 75} years ago.\n\n"
 	end
 end
 
 
-def is_young_gender(age , gender)
-	if age < 20 && gender.downcase == "m"
+def is_young_gender(user)
+	if user[:age] < 20 && user[:gender] == "m"
 		puts "You are a young boy.\n\n"
-	elsif age < 20 && gender.downcase == "f"
+	elsif user[:age] < 20 && user[:gender] == "f"
 		puts "You are a young girl.\n\n"
 	else
 		puts "You are not very young.\n\n"
@@ -33,103 +33,108 @@ def is_young_gender(age , gender)
 end
 
 
-def are_great_grandmother(age , gender)
-	if age > 70 && gender.downcase == "f"
+def are_great_grandmother(user)
+	if user[:age] > 70 && user[:gender] == "f"
 		puts "Are you a great-great grandmother!\n\n"
 	end
 end
 
 
-def are_great_grandfather(age , gender)
-	if age > 70 && gender.downcase == "m"
+def are_great_grandfather(user)
+	if user[:age] > 70 && user[:gender] == "m"
 		puts "Are you a great-great grandfather!\n\n"
 	end 
 end
 
+def get_user_info
+	user = {}
 
-def what_name
 	puts "What is your name?"
-	gets.chomp
-end
+	user[:name] = gets.chomp
 
-
-def how_old
 	puts "What is your age?"
-	gets.chomp.to_i
+	user[:age] = gets.chomp.to_i
+
+	while user[:gender] != "m" && user[:gender] != "f"
+		puts "Are you (M)ale or (F)emale?"
+		user[:gender] = gets.chomp.downcase
+	end
+
+	user
+end
+
+def answer?(question)
+		answer = ""
+
+		while answer != ("yes" || "no")
+			puts question
+			answer = gets.chomp.downcase
+		end
+
+		answer == "yes"
+end
+
+def do_grocery_list(grocery_list)
+
+	while grocery_list.length > 0
+		random_item = grocery_list[rand(grocery_list.length + 1)]
+	 	answer = answer?("Did you grab the #{random_item}? (yes or no)")
+	 	if answer
+			grocery_list.delete(random_item)
+		end
+		display_grocery_list(grocery_list)
+	end
+	#Working on the logic of this
+	#while answer?("Do you want to add anything to the grocery list?")
+	#new_item = gets.chomp
+	#grocery_list << new_item
+	#end
+
+end
+
+def display_grocery_list(grocery_list)
+
+	grocery_list.each do |item|
+	puts item
+
+	end
+
 end
 
 
-def what_gender
-	puts "What is your gender?"
-	gets.chomp
-end 
 
 #////////////////////////////////////////Methods/Functions above this line
-name = what_name
-
-age = how_old
-
-gender = what_gender
-
-old_age = 75 - age
-
-older_age = age - 75
-
-car_rental(age)
-
-
-relative_to_75(age)
-
-
-is_young_gender(age, gender)
-
-
-are_great_grandmother(age , gender)
-
-
-are_great_grandfather(age, gender)
-
-
-puts "Do you mind if I call you #{name.chars.first}.\n\n"
-
-
-puts "Hi #{name} who is #{age} years old!\n\n"
-
-
-puts "You will be 75 years old in #{old_age} years.\n\n"
-
-
-puts age > 40 ? "You are getting older!\n\n" : "You are still young!\n\n"
-
-
-name.upcase!
-
-puts "Hey #{name}, where are you going!?\n\n"
-
-
-puts "You are pretty old!\n\n" unless age < 60
-
-
-puts "Yo, 'Dude', what's up?\n\n"
-
-
+#Rewrite with hashes in place of user variables and add checks for wrong answers and grocery processes
 grocery_list = Array.new
 grocery_list = ["bread", "cheese", "chicken", "wine", "soup", "butter"]
 
-random_item = grocery_list[rand(grocery_list.length + 1)]
-puts "Did you grab the #{random_item}?\n\n"
+current_user = get_user_info
 
-grocery_list.delete(random_item)
+car_rental(current_user)
 
-puts "Oh yeah, don't forget:"
-new_item = gets.chomp
-grocery_list << new_item
+relative_to_75(current_user)
 
-puts " "
+is_young_gender(current_user)
 
-grocery_list.each do |item|
-	puts item
-end
+are_great_grandmother(current_user)
+
+are_great_grandfather(current_user)
+
+do_grocery_list(grocery_list)
+
+display_grocery_list(grocery_list)
+
+#///////////////////////////////////////////////////////////////// Code I haven't modified yet
+#puts "Do you mind if I call you #{name.chars.first}.\n\n"
+
+
+#puts age > 40 ? "You are getting older!\n\n" : "You are still young!\n\n"
+
+#puts "You are pretty old!\n\n" unless age < 60
+
+#grocery_list.each do |item|
+#	puts item
+#end
 
 
 #Older code that did not fit with the changes, but was part of the original
