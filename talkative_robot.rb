@@ -1,79 +1,229 @@
 require 'pry'
+require 'CSV'
 
 
-puts "What is your name?"
-name = gets.chomp
-
-puts "What is your age?"
-age = gets.chomp.to_i
-
-puts "What is your gender?"
-gender = gets.chomp
-
-puts "Hi #{name} who is #{age} years old!"
-
-puts " " #to make a space
-
-puts age > 40 ? "You are getting older!" : "You are still young!"
-
-puts "You are pretty old!" unless age < 60
-
-if age < 25 
-	puts "You can't rent a car yet!"
-else
-	puts "You can rent a car!"
-end
-
-puts " " #to make a space
-
-old_age = 75 - age
-older_age = age - 75
-
-case 
-when age < 75
-	puts "You'll be 75 in #{old_age} years!"
-when age == 75
-	puts "You're 75."
-when age > 75
-	puts "You turned 75 #{older_age} years ago."
-end
-
-puts " " #to make a space
-
-if age < 20 && gender.downcase == "m"
-	puts "You are a young boy"
-elsif age < 20 && gender.downcase == "f"
-	puts "You are a young girl"
-else
-	puts "You are not very young"
+def car_rental(user)
+	if user[:age] < 25 
+		puts "You can't rent a car yet!\n\n"
+	else
+		puts "You can rent a car!\n\n"
+	end
 end
 
 
+def relative_to_75(user)
+	case 
+	when user[:age] < 75
+		puts "You'll be 75 in #{75 -user[:age]} years!\n\n"
+	when user[:age] == 75
+		puts "You're 75.\n\n"
+	else
+		puts "You turned 75 #{user[:age] - 75} years ago.\n\n"
+	end
+end
 
-if age > 70 && gender.downcase == "f"
-	puts "Are you a great-great grandmother!"
+
+def is_young_gender(user)
+	if user[:age] < 20 && user[:gender] == "m"
+		puts "You are a young boy.\n\n"
+	elsif user[:age] < 20 && user[:gender] == "f"
+		puts "You are a young girl.\n\n"
+	else
+		puts "You are not very young.\n\n"
+	end
+end
+
+
+def are_great_grandmother(user)
+	if user[:age] > 70 && user[:gender] == "f"
+		puts "Are you a great-great grandmother!\n\n"
+	end
+end
+
+
+def are_great_grandfather(user)
+	if user[:age] > 70 && user[:gender] == "m"
+		puts "Are you a great-great grandfather!\n\n"
+	end 
+end
+
+
+def get_user_info
+	user = {}
+
+	puts "What is your name?"
+	user[:name] = gets.chomp
+
+	puts "What is your age?"
+	user[:age] = gets.chomp.to_i
+
+	while user[:gender] != "m" && user[:gender] != "f"
+		puts "Are you (M)ale or (F)emale?"
+		user[:gender] = gets.chomp.downcase
+	end
+
+	user
+end
+def answer?(question)
+		answer = ""
+
+		while answer != ("yes" || "no")
+			puts question
+			answer = gets.chomp.downcase
+		end
+
+		answer == "yes"
+end
+
+def do_grocery_list(grocery_list)
+
+	while grocery_list.length > 0
+		random_item = grocery_list[rand(grocery_list.length + 1)]
+	 	answer = answer?("Did you grab the #{random_item}? (yes or no)")
+	 	if answer
+			grocery_list.delete(random_item)
+		end
+		display_grocery_list(grocery_list)
+	end
+	#Working on the logic of this
+	#while answer?("Do you want to add anything to the grocery list?")
+	#new_item = gets.chomp
+	#grocery_list << new_item
+	#end
+
+end
+
+def display_grocery_list(grocery_list)
+
+	grocery_list.each do |item|
+	puts item
+
+	end
+
+end
+
+def write_to_doc(grocery_list)
+	IO.write("grocery list.txt" , grocery_list.join(", "))
+end
+
+def add_another_to_list(grocery_list)
+	continue = true
+	while continue
+		puts "Do you want to add more? (yes, no)"
+		add_more = gets.chomp.downcase
+		if add_more == "no"
+			continue = false
+		else
+			add_to_list(grocery_list)
+		end
+		
+	end
+
+end
+
+def write_to_csv(grocery_list)
+	CSV.open("grocery list CSV.csv", "w") do |csv|
+		csv << ["Number", "  Item"]
+		grocery_list.each_index { |index|	csv << ["#{index + 1}", "#{grocery_list[index]}" ]	}
+	end
+end
+
+def read_from_csv
+	col_data = []
+	CSV.foreach('grocery list CSV.csv') do |row|
+		col_data << row[1]
+	end
+	puts "THis is the current grocery list."
+	puts col_data
+	col_data
+end
+
+def add_to_list(grocery_list)
+
+	 puts "Please add to the grogery list."
+	 grocery_list << gets.chomp.capitalize
+	
 end
 
 
 
-if age > 70 && gender.downcase == "m"
-	puts "Are you a great-great grandfather!"
-end 
+def print_grocery_list(grocery_list)
+
+	grocery_list.each_index { |item| puts "Item #{item + 1} -- #{grocery_list[item]}"}
+
+end
+
+def people_enum
+	people = ["user", "author"]
+	puts  people.detect {|item| item == "author"}
+end
+
+def select_by_name(people, my_name)
+	people.select{ |item|  item == my_name}
+
+end
 
 
-puts " "
+#////////////////////////////////////////Methods/Functions above this line
+new_grocery_list = Array.new
+new_grocery_list = []
+grocery_list = Array.new
+grocery_list = []
 
-puts "Do you mind if I call you #{name.chars.first}"
+people = [{name: "Michael Amato", age: 27, gender: "M"}, {name: "Joe User", age: 20, gender: "M"}]
 
-puts " "
+author = {name: "Michael Amato", age: 27, gender: "M"}
+user = {name: "Joe User", age: 20, gender: "M"}
 
-puts "You will be 75 years old in #{old_age} years."
-puts " "
 
-name.upcase!
-puts "Hey #{name}, where are you going!?"
+puts author.reject{ |key, value| value != "Michael Amato" }
+puts user.reject{ |key, value| value != "Michael Amato" }
 
-puts "Yo, 'Dude', what's up?"
+
+me = select_by_name(people, author[:name])
+puts me
+people_enum
+
+
+add_to_list(grocery_list)
+add_another_to_list(grocery_list)
+print_grocery_list(grocery_list)
+write_to_doc(grocery_list)
+
+write_to_csv(grocery_list)
+new_grocery_list = read_from_csv
+add_another_to_list(new_grocery_list)
+print_grocery_list(new_grocery_list)
+#current_user = get_user_info
+
+#car_rental(current_user)
+
+#relative_to_75(current_user)
+
+#is_young_gender(current_user)
+
+#are_great_grandmother(current_user)
+
+#are_great_grandfather(current_user)
+
+#do_grocery_list(grocery_list)
+
+#display_grocery_list(grocery_list)
+
+
+
+
+#///////////////////////////////////////////////////////////////// Code I haven't modified yet
+#puts "Do you mind if I call you #{name.chars.first}.\n\n"
+
+
+#puts age > 40 ? "You are getting older!\n\n" : "You are still young!\n\n"
+
+#puts "You are pretty old!\n\n" unless age < 60
+
+#grocery_list.each do |item|
+#	puts item
+#end
 
 
 #Older code that did not fit with the changes, but was part of the original
