@@ -124,7 +124,7 @@ end
 def write_to_csv(grocery_list)
 	CSV.open("grocery list CSV.csv", "w") do |csv|
 		csv << ["Number", "  Item"]
-		grocery_list.each_index { |index|	csv << ["#{index + 1}", "        #{grocery_list[index]}" ]	}
+		grocery_list.each_index { |index|	csv << ["#{index + 1}", "#{grocery_list[index]}" ]	}
 	end
 end
 
@@ -132,8 +132,10 @@ def read_from_csv
 	col_data = []
 	CSV.foreach('grocery list CSV.csv') do |row|
 		col_data << row[1]
-		puts col_data
 	end
+	puts "THis is the current grocery list."
+	puts col_data
+	col_data
 end
 
 def add_to_list(grocery_list)
@@ -189,7 +191,9 @@ print_grocery_list(grocery_list)
 write_to_doc(grocery_list)
 
 write_to_csv(grocery_list)
-read_from_csv
+new_grocery_list = read_from_csv
+add_another_to_list(new_grocery_list)
+print_grocery_list(new_grocery_list)
 #current_user = get_user_info
 
 #car_rental(current_user)
