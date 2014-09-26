@@ -123,8 +123,9 @@ end
 
 def write_to_csv(grocery_list)
 	CSV.open("grocery list CSV.csv", "w") do |csv|
-		csv << ["Number", "  Item"]
+		csv << ["Number", "Item"]
 		grocery_list.each_index { |index|	csv << ["#{index + 1}", "#{grocery_list[index]}" ]	}
+		
 	end
 end
 
@@ -133,7 +134,7 @@ def read_from_csv
 	CSV.foreach('grocery list CSV.csv') do |row|
 		col_data << row[1]
 	end
-	puts "THis is the current grocery list."
+	puts "This is the current grocery list."
 	puts col_data
 	col_data
 end
@@ -153,13 +154,14 @@ def print_grocery_list(grocery_list)
 
 end
 
-def people_enum
-	people = ["user", "author"]
-	puts  people.detect {|item| item == "author"}
+def people_enum(author, user)
+	puts author.reject{ |key, value| value != "Michael Amato" }
+	puts user.reject{ |key, value| value != "Michael Amato" }
+
 end
 
 def select_by_name(people, my_name)
-	people.select{ |item|  item == my_name}
+	people.select{ |item| item == my_name}
 
 end
 
@@ -171,18 +173,14 @@ grocery_list = Array.new
 grocery_list = []
 
 people = [{name: "Michael Amato", age: 27, gender: "M"}, {name: "Joe User", age: 20, gender: "M"}]
-
 author = {name: "Michael Amato", age: 27, gender: "M"}
 user = {name: "Joe User", age: 20, gender: "M"}
 
 
-puts author.reject{ |key, value| value != "Michael Amato" }
-puts user.reject{ |key, value| value != "Michael Amato" }
 
 
-me = select_by_name(people, author[:name])
-puts me
-people_enum
+me = select_by_name(author, "Michael Amato")
+people_enum(author, user)
 
 
 add_to_list(grocery_list)
