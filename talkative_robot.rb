@@ -64,6 +64,7 @@ def get_user_info
 
 	user
 end
+
 def answer?(question)
 		answer = ""
 
@@ -85,11 +86,6 @@ def do_grocery_list(grocery_list)
 		end
 		display_grocery_list(grocery_list)
 	end
-	#Working on the logic of this
-	#while answer?("Do you want to add anything to the grocery list?")
-	#new_item = gets.chomp
-	#grocery_list << new_item
-	#end
 
 end
 
@@ -121,22 +117,27 @@ def add_another_to_list(grocery_list)
 
 end
 
-def write_to_csv(grocery_list)
-	CSV.open("grocery list CSV.csv", "w") do |csv|
-		csv << ["Number", "  Item"]
-		grocery_list.each_index { |index|	csv << ["#{index + 1}", "#{grocery_list[index]}" ]	}
+def write_to_csv(grocery_list, any_csv_file)
+	CSV.open(any_csv_file, "w") do |csv|
+		csv << ["Number", "Item"]
+		grocery_list.each_index { |index| csv << [index + 1, grocery_list[index]] }
 	end
 end
 
-def read_from_csv
+def read_from_csv(any_csv_file)
 	col_data = []
-	CSV.foreach('grocery list CSV.csv') do |row|
-		col_data << row[1]
-	end
-	puts "THis is the current grocery list."
-	puts col_data
+	CSV.foreach(any_csv_file) { |row| col_data << row[1] }
 	col_data
 end
+
+def print_csv(col_data)
+	puts "THis is the current grocery list."
+	col_data.shift
+	puts col_data
+end
+grocery_list = read_from_csv('grocery list csv.csv')
+print_csv(grocery_list)
+write_to_csv(grocery_list, 'grocery list CSV.csv')
 
 def add_to_list(grocery_list)
 
