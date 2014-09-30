@@ -6,6 +6,7 @@ class Person
 		@name   = args[:name]
 		@age    = args[:age]
 		@gender = args[:gender]
+		@author = args[:author]
 	end 
 
 	def author
@@ -33,7 +34,7 @@ attr_writer :author
 
 	end
 
-	def get_user_info
+	def self.get_user_info
 		user = {}	
 		puts "What is your name?"
 		user[:name] = gets.chomp
@@ -67,28 +68,44 @@ attr_writer :author
 		end
 	end
 
-	def is_young_gender
-		if @age < 20 && @gender == "m"
+	def young_gender_message
+		if young? && male?
 			puts "You are a young boy.\n\n"
-		elsif @age < 20 && @gender == "f"
+		elsif young? && female?
 			puts "You are a young girl.\n\n"
 		else
 			puts "You are not very young.\n\n"
 		end
 	end
 
-	def are_great_grandmother
-		if @age > 70 && @gender == "f"
-			puts "Are you a great-great grandmother!\n\n"
+	def age_and_gender_based_message
+		if old? && female?
+			puts "Are you a great grandmother!\n\n"
+		elsif old? && male?
+			puts "Are you a great grandfather!\n\n"
+		elsif young? && female?
+			puts "You are not a great grandmother!\n\n"
+		elsif young? && male?
+			puts "You are not a great grandfather!\n\n"
 		end
 	end
-
-	def are_great_grandfather
-		if @age > 70 && @gender == "m"
-			puts "Are you a great-great grandfather!\n\n"
-		end 
-	end
 	
+	def young?
+		age < 20
+	end
+
+	def old?
+		age >85
+	end
+
+	def male?
+		@gender == "m" || @gender == "male" 
+	end
+
+	def female?
+		@gender == "f" || @gender == "female"
+	end
+
 	def activity
  		puts "Which activity would you like to do tomorrow?"
  		activity = "Hiking, Climbing, Sleeping, Coding"
@@ -119,7 +136,7 @@ attr_writer :author
 	private
 
 		def first_initial
-			@name.chars.first
+			@name = @name.chars.first
 		end
 
 		def people_enum
@@ -129,7 +146,6 @@ attr_writer :author
 
 		def select_by_name(people, my_name)
 			people.select{ |item|  item == my_name}
-
 		end
 
 end
@@ -144,24 +160,18 @@ class GroceryList
 	end
 
 	def do_grocery_list
-
-		while @grocery_list.length > 0
+		until @grocery_list.empty?
 			random_item = @grocery_list[rand(grocery_list.length + 1)]
 		 	answer = answer?("Did you grab the #{random_item}? (yes or no)")
 		 	if answer
 				@grocery_list.delete(random_item)
 			end
-			display_grocery_list(@grocery_list)
+			display_grocery_list
 		end
-
 	end
 
 	def display_grocery_list
-
-		@grocery_list.each do |item|
-		puts item
-		end
-
+		@grocery_list.each { |item| puts item }
 	end
 
 	def read_from_doc(any_doc_file)
@@ -173,18 +183,16 @@ class GroceryList
 	end
 
 	def add_another_to_list
-		continue = true
-		while continue
+		continue = false
+		until continue
 			puts "Do you want to add more? (yes, no)"
 			add_more = gets.chomp.downcase
 			if add_more == "no"
-				continue = false
+				continue = true
 			else
 				add_to_list
 			end
-		
 		end
-
 	end
 
 	def write_to_csv(any_csv_file)
@@ -206,32 +214,24 @@ class GroceryList
 	end
 
 	def print_grocery_list
-
 		@grocery_list.each_index { |item| puts "Item #{item + 1} -- #{@grocery_list[item]}"}
-
 	end
 
-private
-	
-	def answer?(question)
-		answer = ""
-
-		while answer != ("yes" || "no")
-			puts question	
-			answer = gets.chomp.downcase
+	private
+		def answer?(question)
+			answer = ""
+			until answer == ("yes" || "no")
+				puts question	
+				answer = gets.chomp.downcase
+			end
+			answer == "yes"
 		end
 
-		answer == "yes"
-	end
-
-	def add_to_list
-
-		 puts "Please add to the grogery list."
-		 @grocery_list << gets.chomp.capitalize
+		def add_to_list
+			 puts "Please add to the grogery list."
+		 	@grocery_list << gets.chomp.capitalize
 	
-	end
-
-
+		end
 end
 
 #////////////////////////////////////////Methods/Functions above this line
@@ -250,14 +250,13 @@ end
 #people_enum
 
 user_info = User.get_user_info
-@user = User.new()
+@user = User.new(user_info)
 
 
 @user.relative_to_75
 @user.car_rental
-@user.is_young_gender
-@user.are_great_grandmother
-@user.are_great_grandfather
+@user.young_gender_message
+@user.age_and_gender_based_message
 @user.activity
 @user.first_initial_check
 
