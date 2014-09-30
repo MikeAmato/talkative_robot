@@ -1,9 +1,9 @@
-require 'pry'
-require 'CSV'
-require '.\person'
-require '.\user'
-require '.\author'
-require '.\grocery list'
+require 'pry'							#This allows stepping through the code 
+require 'CSV'							#This allows the reading/writing of csv files
+require './person'  			#These are files that will be accessed when the code is run
+require './user'					#//
+require './author'				#//
+require './grocery list'  #//
 
 user_info = User.get_user_info
 @user = User.new(user_info)
