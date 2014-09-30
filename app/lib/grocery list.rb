@@ -43,6 +43,17 @@ class GroceryList
     end
   end
 
+  def remove_from_grocery_list
+    remove = true
+    while remove
+      puts "Do you want to remove anything from the Grocery list?"
+      remove = gets.chomp.downcase
+      if remove == "no"
+        remove = false
+      else
+        puts "What do you want to remove?"
+        @grocery_list.
+
   def write_to_csv(any_csv_file)
     CSV.open(any_csv_file, "w") do |csv|
       csv << ["Number", "Item"]
