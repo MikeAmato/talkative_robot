@@ -3,8 +3,9 @@ require 'CSV'
 
 class Person 
 	def initialize(args)
-		@name = args[:name]
-		@age = args[:age]
+		@name   = args[:name]
+		@age    = args[:age]
+		@gender = args[:gender]
 	end 
 
 	def author
@@ -26,8 +27,8 @@ attr_writer :author
 	def initialize(args)
 		super(args)
 		@author = args[:author]
-		@name = args[:name]
-		@age = args[:age]
+		@name   = args[:name]
+		@age    = args[:age]
 		@gender = args[:gender]
 
 	end
@@ -46,18 +47,6 @@ attr_writer :author
 		end
 		user
 	end
-
-	#def get_name
-	#	@name
-	#end
-
-	#def get_age
-	#	@age
-	#end
-
-	#def get_gender
-	#	@gender
-	#end
 
 	def relative_to_75
 		case 
@@ -127,11 +116,21 @@ attr_writer :author
 		end
 	end
 
-private
+	private
 
-	def first_initial
-		@name.chars.first
-	end
+		def first_initial
+			@name.chars.first
+		end
+
+		def people_enum
+			people = ["user", "author"]
+			puts  people.detect {|item| item == "author"}
+		end
+
+		def select_by_name(people, my_name)
+			people.select{ |item|  item == my_name}
+
+		end
 
 end
 
@@ -235,18 +234,6 @@ private
 
 end
 
-
-def people_enum
-	people = ["user", "author"]
-	puts  people.detect {|item| item == "author"}
-end
-
-def select_by_name(people, my_name)
-	people.select{ |item|  item == my_name}
-
-end
-
-
 #////////////////////////////////////////Methods/Functions above this line
 #people = [{name: "Michael Amato", age: 27, gender: "M"}, {name: "Joe User", age: 20, gender: "M"}]
 #author = {name: "Michael Amato", age: 27, gender: "M"}
@@ -261,17 +248,18 @@ end
 #me = select_by_name(people, author[:name])
 #puts me
 #people_enum
-#user_info = User.get_user_info
-#@user = User.new()
+
+user_info = User.get_user_info
+@user = User.new()
 
 
-# @user.relative_to_75
-# @user.car_rental
-# @user.is_young_gender
-# @user.are_great_grandmother
-# @user.are_great_grandfather
-# @user.activity
-# @user.first_initial_check
+@user.relative_to_75
+@user.car_rental
+@user.is_young_gender
+@user.are_great_grandmother
+@user.are_great_grandfather
+@user.activity
+@user.first_initial_check
 
 col_data = []
 
