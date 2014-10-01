@@ -6,4 +6,21 @@ class Author < Person
     @gender = "m"
     @author = true
   end
+
+  def author 
+    @author
+  end
+
+  def name
+    @name
+  end
+
+  def age
+    @age
+  end
+
+  def gender
+    @gender
+  end
+  
 end

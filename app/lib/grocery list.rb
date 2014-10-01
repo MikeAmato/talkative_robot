@@ -1,10 +1,8 @@
 class GroceryList
+  attr_reader :grocery_list
+
   def initialize(args)
     @grocery_list = args[:items]  #for making the GL array using a hash arg
-  end
-
-  def grocery_list
-    @grocery_list
   end
 
   def do_grocery_list
@@ -43,6 +41,20 @@ class GroceryList
     end
   end
 
+  # def remove_from_grocery_list
+  #   remove = true
+  #   while remove
+  #     puts "Do you want to remove anything from the Grocery list?"
+  #     remove = gets.chomp.downcase
+  #     if remove == "no"
+  #       remove = false
+  #     else
+  #       puts "What do you want to remove?"
+  #       @grocery_list.
+  #     end
+  #   end
+  # end
+
   def write_to_csv(any_csv_file)
     CSV.open(any_csv_file, "w") do |csv|
       csv << ["Number", "Item"]
@@ -65,19 +77,17 @@ class GroceryList
     @grocery_list.each_index { |item| puts "Item #{item + 1} -- #{@grocery_list[item]}"}
   end
 
-  private
-    def answer?(question)
-      answer = ""
-      until answer == ("yes" || "no")
-        puts question 
-        answer = gets.chomp.downcase
-      end
-      answer == "yes"
+  def answer?(question)
+    answer = ""
+    until answer == ("yes" || "no")
+      puts question 
+      answer = gets.chomp.downcase
     end
+    answer == "yes"
+  end
 
-    def add_to_list
-       puts "Please add to the grogery list."
-      @grocery_list << gets.chomp.capitalize
-  
-    end
+  def add_to_list
+     puts "Please add to the grogery list."
+    @grocery_list << gets.chomp.capitalize
+  end 
 end
