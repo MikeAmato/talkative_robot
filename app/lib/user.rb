@@ -11,6 +11,18 @@ attr_writer :author
 
   end
 
+  def age 
+    @age
+  end
+
+  def name
+    @name
+  end
+
+  def gender
+    @gender
+  end
+
   def self.get_user_info
     user = {} 
     puts "What is your name?"
@@ -72,7 +84,7 @@ attr_writer :author
   end
 
   def old?
-    age >85
+    age > 85
   end
 
   def male?

@@ -4,8 +4,8 @@ require './lib/person'
 describe "Person" do 
   describe "author" do
     it "returns author" do
-      @user = User.new( { author: true} )
-      expect(@user.author).to eq(true)
+      @person = Person.new( { author: true} )
+      expect(@person.author).to eq(true)
     end
   end
 end 
@@ -15,21 +15,13 @@ describe "Person" do
 
   subject { person }
 
-  it { should respond_to(:name) }
+  it {should respond_to(:name) }
   it {should respond_to(:age) }
   it {should respond_to(:gender) }
-  it {should respond_to(:hometown) }
 
-  describe "first_initial" do
-    it "returns first letter of name" do
-      expect(person.first_initial).to eq("G")
-    end
-  end
-
-  describe "last_name" do
-    it "returns last name" do
-      expect(person.last_name).to eq("Pass")
-    end
-  end
-
+  # describe "first_initial" do
+  #   it "returns first letter of name" do
+  #     expect(person.first_initial).to eq("M")
+  #   end
+  # end
 end

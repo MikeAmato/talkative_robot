@@ -53,6 +53,9 @@ class GroceryList
       else
         puts "What do you want to remove?"
         @grocery_list.
+      end
+    end
+  end
 
   def write_to_csv(any_csv_file)
     CSV.open(any_csv_file, "w") do |csv|
@@ -89,6 +92,5 @@ class GroceryList
     def add_to_list
        puts "Please add to the grogery list."
       @grocery_list << gets.chomp.capitalize
-  
     end
 end
