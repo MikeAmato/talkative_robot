@@ -8,19 +8,6 @@ attr_writer :author
     @name   = args[:name]
     @age    = args[:age]
     @gender = args[:gender]
-
-  end
-
-  def age 
-    @age
-  end
-
-  def name
-    @name
-  end
-
-  def gender
-    @gender
   end
 
   def self.get_user_info
@@ -59,28 +46,29 @@ attr_writer :author
 
   def young_gender_message
     if young? && male?
-      puts "You are a young boy.\n\n"
+      "You are a young boy.\n\n"
     elsif young? && female?
-      puts "You are a young girl.\n\n"
+      "You are a young girl.\n\n"
     else
-      puts "You are not very young.\n\n"
+      "You are not very young.\n\n"
     end
   end
 
-  def age_and_gender_based_message
+# The puts can go before the method call so the puts in the method can be deleted
+  def age_and_gender_based_message                
     if old? && female?
-      puts "Are you a great grandmother!\n\n"
+      "Are you a great grandmother!\n\n"
     elsif old? && male?
-      puts "Are you a great grandfather!\n\n"
+      "Are you a great grandfather!\n\n"
     elsif young? && female?
-      puts "You are not a great grandmother!\n\n"
+      "You are not a great grandmother!\n\n"
     elsif young? && male?
-      puts "You are not a great grandfather!\n\n"
+      "You are not a great grandfather!\n\n"
     end
   end
   
   def young?
-    age < 20
+    age < 30
   end
 
   def old?
@@ -95,22 +83,23 @@ attr_writer :author
     @gender == "f" || @gender == "female"
   end
 
+#The puts can go before the method call so the puts in the method can be deleted 
   def activity
     puts "Which activity would you like to do tomorrow?"
     activity = "Hiking, Climbing, Sleeping, Coding"
     puts activity
-    tomorrow = gets.chomp.capitalize 
-    case tomorrow
+    selected_activity = gets.chomp.capitalize 
+    case selected_activity
     when "Hiking"
-      puts "#{tomorrow} sounds too tiring!"
+      "#{selected_activity} sounds too tiring!"
     when "Climbing"
-      puts "#{tomorrow} sounds too dangerous!"
+      "#{selected_activity} sounds too dangerous!"
     when "Sleeping"
-      puts "#{tomorrow} sounds too lazy!"
+      "#{selected_activity} sounds too lazy!"
     when "Coding"
-      puts "#{tomorrow} sounds like fun!"
+      "#{selected_activity} sounds like fun!"
     else
-      puts "I don't know that activity!?"
+      "I don't know that activity!?"
     end
   end
 

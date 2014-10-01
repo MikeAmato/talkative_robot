@@ -15,9 +15,9 @@ describe "Person" do
 
   subject { person }
 
-  it {should respond_to(:name) }
-  it {should respond_to(:age) }
-  it {should respond_to(:gender) }
+  it { should respond_to(:name) }
+  it { should respond_to(:age) }
+  it { should respond_to(:gender) }
 
   # describe "first_initial" do
   #   it "returns first letter of name" do
